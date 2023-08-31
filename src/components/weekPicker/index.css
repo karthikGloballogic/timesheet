@@ -1,0 +1,72 @@
+.dataMenu {
+  background: #ffffff;
+  border-radius: 8px;
+  position: absolute;
+  top: 75px;
+  left: 120px;
+  padding: 5px 0px;
+  width: 230px;
+  box-shadow: 0 10px 10px 0px #efefef;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.dataMenu.dateActive {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.date-list {
+  color: black;
+  width: 100%;
+  display: block;
+  padding: 8px 0px;
+  cursor: pointer;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+}
+
+.date-list:hover {
+  background: #efefef69;
+}
+
+.user-dropdown-icon {
+  height: 2.5vmin;
+}
+
+.date-picker-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  border-radius: 13px;
+  padding: 0px 20px;
+  box-shadow: 0px 4px 20px 0px #efefef, -5px -4px 20px 0px #efefef;
+}
+
+.date-picker-container p {
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.date-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.dateName {
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  /* font-weight: 500; */
+}

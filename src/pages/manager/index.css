@@ -1,0 +1,78 @@
+.manager-container {
+  padding: 1rem;
+  /* flex: 1; */
+}
+
+.table-container {
+  margin-top: 3.5rem;
+}
+
+table {
+  width: 97vw;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 4px 20px 0px #efefef, -3px -2px 10px 0px #efefef;
+  /* overflow: hidden; */
+}
+
+th {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  padding: 20px 5px;
+  /* background: #ecedf0; */
+  /* border-radius: 20px; */
+}
+
+/* tr:nth-child(odd) {
+  background: #ecedf0;
+} */
+
+th,
+td {
+  border-bottom: 1px solid #efefef;
+}
+
+td {
+  text-align: center;
+  padding: 15px 5px;
+  background: inherit;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+}
+
+.checkbox {
+  width: 15px;
+  height: 15px;
+  /* border: 1px solid #efefef; */
+}
+
+.table-button {
+  border-radius: 6px;
+  background: rgba(112, 107, 248, 0.14);
+  border: none;
+  color: #706bf8;
+  font-weight: 600;
+  width: 90px;
+  height: 30px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.comment {
+  border: 1px solid lightgray;
+  padding: 5px;
+  border-radius: 5px;
+  width: 70%;
+  /* outline: none; */
+}
+.comment::placeholder {
+  color: lightgray;
+  /* font-size: 11px; */
+}
+
+/* .comment:focus {
+  border: 2px solid #706bf8;
+} */
