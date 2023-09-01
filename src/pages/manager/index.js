@@ -75,6 +75,7 @@ const Manager = () => {
       users: updatedData,
     };
     dispatch(update(payload));
+    setSelectAll(false);
 
     // console.log(payload, "payload");
   };

@@ -46,9 +46,6 @@ const TimeCard = (props) => {
       .map(() => React.createRef());
   }, []);
 
-  console.log(filledData.projectCode, "projectCodeValue");
-  // console.log(filledData, "projectCodeValue");
-
   useEffect(() => {
     if (!filled && status !== "rejected") {
       setProjectCodeValue("");
@@ -92,7 +89,6 @@ const TimeCard = (props) => {
 
   const getTotal = () => {
     let sum = 0;
-    console.log(weekData, "Total");
     for (let i = 0; i < weekData.length; i++) {
       if (weekData[i]) sum += weekData[i];
     }

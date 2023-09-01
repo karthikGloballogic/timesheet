@@ -45,12 +45,6 @@ const Employee = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // To clear the inputs
-  //   setHourData([]);
-  //   setTotalHours([]);
-  // }, [user]);
-
   const setTimeCardDetails = (val, i) => {
     let temp = [...hourData];
     let tempTotalHours = [...totalHours];
@@ -91,8 +85,11 @@ const Employee = () => {
     return true;
   };
 
+  // console.log(rows, "rows");
+
   useEffect(() => {
     const weekIndex = state.findIndex((week) => week.week === weekSelected);
+    // console.log(weekIndex, "weekIndex");
 
     if (weekIndex !== -1) {
       // Find the matching user in the week's users
@@ -104,7 +101,7 @@ const Employee = () => {
         // User's data is available for the selected week
         let userLoggedData = state[weekIndex]?.users[userIndex].userLoggedData;
         let status = state[weekIndex]?.users[userIndex]?.status;
-        console.log(status, "status", userLoggedData);
+        // console.log(status, "status", userLoggedData);
         setStatus(status);
         setRows(userLoggedData);
         setIsFilledDataAvailable(userLoggedData);
@@ -170,7 +167,7 @@ const Employee = () => {
       <div className="timesheet-container">
         {rows.map((row, i) => (
           <TimeCard
-            key={row}
+            key={i + row}
             duration={weekSelected}
             deleteRow={() => deleteRow(i)}
             user={user}
