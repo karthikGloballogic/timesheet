@@ -1,0 +1,34 @@
+/* Autocomplete container */
+.autocomplete {
+  position: relative;
+}
+
+/* Suggestions list */
+.suggestions {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 1; /* Ensure the suggestions appear above other content */
+  border: 1px solid #ccc; /* Add a border for a nice appearance */
+  box-shadow: 0 10px 10px 0px #efefef; /* Add a subtle shadow */
+  background-color: #fff; /* Background color for the suggestions */
+  max-height: 200px; /* Set a max height for the suggestions list */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+/* Individual suggestion item */
+.suggestions li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Highlight the active suggestion */
+.suggestions li.active {
+  background-color: #f0f0f0; /* Highlight background color */
+}
+
+/* Hide the suggestions when not active */
+.autocomplete:not(:hover) .suggestions {
+  display: none;
+}

@@ -3,6 +3,7 @@ import cross from "../../assets/images/cross.png";
 import generateFormattedDateArray from "../../common/commonFunctions/generateWeekDates";
 
 import "./index.css";
+import AutocompleteInput from "../autoComplete";
 
 const projectCode = ["WFS_1101", "WFS_1102"];
 const jobCode = [
@@ -135,23 +136,35 @@ const TimeCard = (props) => {
     <div className="timesheet-card" key={key}>
       <div>
         <p className="input-header">Project Code</p>
-        <input
+        <AutocompleteInput
+          data={projectCode}
+          disabled={filled}
+          onChange={setProjectCodeValue}
+          defaultValue={projectCodeValue}
+        />
+        {/* <input
           type="text"
           className="project-input"
           list="projectCode"
           value={projectCodeValue}
           disabled={filled}
           onChange={(event) => setProjectCodeValue(event.target.value)}
-        />
-        <datalist id="projectCode">
+        /> */}
+        {/* <datalist id="projectCode">
           {projectCode.map((projectCode) => (
             <option value={projectCode}>{projectCode}</option>
           ))}
-        </datalist>
+        </datalist> */}
       </div>
       <div>
         <p className="input-header">Job Code</p>
-        <input
+        <AutocompleteInput
+          data={jobCode}
+          disabled={filled}
+          onChange={setJobCodeValue}
+          defaultValue={jobCodeValue}
+        />
+        {/* <input
           type="text"
           className="project-input"
           list="jobCode"
@@ -163,7 +176,7 @@ const TimeCard = (props) => {
           {jobCode.map((jobCode) => (
             <option value={jobCode}>{jobCode}</option>
           ))}
-        </datalist>
+        </datalist> */}
       </div>
       {listDateInput()}
       <div>
