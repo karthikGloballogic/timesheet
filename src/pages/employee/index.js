@@ -102,6 +102,9 @@ const Employee = () => {
         let userLoggedData = state[weekIndex]?.users[userIndex].userLoggedData;
         let status = state[weekIndex]?.users[userIndex]?.status;
         // console.log(status, "status", userLoggedData);
+        setTotalHours(() => {
+          return userLoggedData.map((val) => val?.totalHoursLogged);
+        });
         setStatus(status);
         setRows(userLoggedData);
         setIsFilledDataAvailable(userLoggedData);
