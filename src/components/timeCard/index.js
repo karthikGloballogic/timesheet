@@ -96,17 +96,6 @@ const TimeCard = (props) => {
     return sum;
   };
 
-  // console.log(filled, "filled");
-  // const disableInput = () => {
-  //   console.log(status !== "rejected", "see");
-  //   if (filled) {
-  //     if (status !== "rejected")
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-
   const listDateInput = () => {
     return week.map((day, i) => (
       <div key={day}>
@@ -122,9 +111,6 @@ const TimeCard = (props) => {
               ? filledData.hourlyData[i]
               : undefined
           }
-          // value={
-          //   filled || status === "rejected" ? filledData.hourlyData[i] : undefined
-          // }
           disabled={filled}
           onChange={(event) => setInputValue(event, i)}
         />
@@ -142,19 +128,6 @@ const TimeCard = (props) => {
           onChange={setProjectCodeValue}
           defaultValue={projectCodeValue}
         />
-        {/* <input
-          type="text"
-          className="project-input"
-          list="projectCode"
-          value={projectCodeValue}
-          disabled={filled}
-          onChange={(event) => setProjectCodeValue(event.target.value)}
-        /> */}
-        {/* <datalist id="projectCode">
-          {projectCode.map((projectCode) => (
-            <option value={projectCode}>{projectCode}</option>
-          ))}
-        </datalist> */}
       </div>
       <div>
         <p className="input-header">Job Code</p>
@@ -164,19 +137,6 @@ const TimeCard = (props) => {
           onChange={setJobCodeValue}
           defaultValue={jobCodeValue}
         />
-        {/* <input
-          type="text"
-          className="project-input"
-          list="jobCode"
-          disabled={filled}
-          value={jobCodeValue}
-          onChange={(event) => setJobCodeValue(event.target.value)}
-        />
-        <datalist id="jobCode">
-          {jobCode.map((jobCode) => (
-            <option value={jobCode}>{jobCode}</option>
-          ))}
-        </datalist> */}
       </div>
       {listDateInput()}
       <div>

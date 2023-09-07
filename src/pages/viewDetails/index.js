@@ -7,7 +7,7 @@ import "./index.css";
 import Button from "../../components/button";
 import TimeCard from "../../components/timeCard";
 import { updateUser } from "../../store/features/users";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ViewDetails = () => {
   const { state } = useLocation();

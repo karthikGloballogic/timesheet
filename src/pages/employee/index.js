@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import WeekPicker from "../../components/weekPicker";
-import "./index.css";
 import TimeCard from "../../components/timeCard";
 import Button from "../../components/button";
 import { useDispatch, useSelector } from "react-redux";
-import { add, update } from "../../store/features/users";
+import { add } from "../../store/features/users";
+
 import clock from "../../assets/images/clock.png";
+import "./index.css";
+import {
+  getDisplayTypeForFilledData,
+  getTotalHours,
+  validateData,
+} from "../../common/commonFunctions";
 
 let tempCount = 2;
 const Employee = () => {
@@ -56,36 +62,13 @@ const Employee = () => {
     }
   };
 
-  const getTotalHours = () => {
-    let sum = 0;
-    for (let i = 0; i < totalHours.length; i++) {
-      if (totalHours[i]) sum += totalHours[i];
-    }
-    return sum;
+  const clearInputs = () => {
+    setIsFilledDataAvailable([]);
+    setHourData([]);
+    setRows([0, 1]);
+    setTotalHours([]);
+    setStatus("");
   };
-
-  const validateData = () => {
-    if (hourData.length === 0) {
-      alert("At least one time card must be filled.");
-      return false;
-    }
-
-    for (const timeCard of hourData) {
-      if (timeCard.totalHoursLogged > 0) {
-        if (!timeCard.projectCode || !timeCard.jobCode) {
-          alert("Project code and job code must be provided for entries");
-          return false;
-        }
-      } else {
-        alert("Please log the hours for the project", timeCard.projectCode);
-        return false;
-      }
-    }
-
-    return true;
-  };
-
-  // console.log(rows, "rows");
 
   useEffect(() => {
     const weekIndex = state.findIndex((week) => week.week === weekSelected);
@@ -109,29 +92,21 @@ const Employee = () => {
         setRows(userLoggedData);
         setIsFilledDataAvailable(userLoggedData);
       } else {
-        setIsFilledDataAvailable([]);
-        setHourData([]);
-        setRows([0, 1]);
-        setTotalHours([]);
-        setStatus("");
+        clearInputs();
       }
     } else {
-      setIsFilledDataAvailable([]);
-      setHourData([]);
-      setRows([0, 1]);
-      setTotalHours([]);
-      setStatus("");
+      clearInputs();
     }
   }, [user, weekSelected]);
 
   const handleSubmit = () => {
-    if (validateData()) {
+    if (validateData(hourData)) {
       const payload = {
         week: weekSelected,
         data: {
           username: user,
           userLoggedData: hourData,
-          totalHours: getTotalHours(),
+          totalHours: getTotalHours(totalHours),
         },
       };
       dispatch(add(payload));
@@ -151,7 +126,7 @@ const Employee = () => {
           <div className="total-hours-container">
             <img src={clock} />
             <div>
-              <p className="total-hours">{getTotalHours()}h</p>
+              <p className="total-hours">{getTotalHours(totalHours)}h</p>
               <p className="total-hours-subheading">Total Hours Logged</p>
             </div>
           </div>
@@ -160,10 +135,11 @@ const Employee = () => {
           title="Submit"
           onClick={handleSubmit}
           style={{
-            display:
-              isFilledDataAvailable.length > 0 && status !== "rejected"
-                ? "none"
-                : "",
+            display: getDisplayTypeForFilledData(
+              isFilledDataAvailable,
+              status,
+              "string"
+            ),
           }}
         />
       </div>
@@ -175,11 +151,11 @@ const Employee = () => {
             deleteRow={() => deleteRow(i)}
             user={user}
             status={status}
-            filled={
-              isFilledDataAvailable.length > 0 && status !== "rejected"
-                ? true
-                : false
-            }
+            filled={getDisplayTypeForFilledData(
+              isFilledDataAvailable,
+              status,
+              "boolean"
+            )}
             filledData={isFilledDataAvailable[i]}
             onChange={(val) => setTimeCardDetails(val, i)}
           />
@@ -192,10 +168,11 @@ const Employee = () => {
         style={{
           marginTop: "15px",
           color: "black",
-          display:
-            isFilledDataAvailable.length > 0 && status !== "rejected"
-              ? "none"
-              : "",
+          display: getDisplayTypeForFilledData(
+            isFilledDataAvailable,
+            status,
+            "string"
+          ),
         }}
         onClick={handleAddRow}
       />

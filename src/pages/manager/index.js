@@ -26,7 +26,6 @@ const Manager = () => {
   }, [state, weekSelected]);
 
   const handleCheckboxChange = (id, val) => {
-    console.log(val.target.checked, "check");
     let updatedData = [...tableData];
     updatedData[id] = {
       ...updatedData[id],
@@ -68,19 +67,14 @@ const Manager = () => {
 
     const notSelected = tableData.filter((val) => val?.selected !== true);
 
-    console.log(notSelected, "notSelected");
-
     const payload = {
       week: weekSelected,
       users: updatedData,
     };
     dispatch(update(payload));
     setSelectAll(false);
-
-    // console.log(payload, "payload");
   };
 
-  console.log(tableData, "tabel Data");
   return (
     <div className="manager-container">
       <Header title="Manager Approval" type="manager" />
