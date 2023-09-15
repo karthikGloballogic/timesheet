@@ -4,19 +4,21 @@ import generateFormattedDateArray from "../../common/commonFunctions/generateWee
 
 import "./index.css";
 import AutocompleteInput from "../autoComplete";
+import { makeRequest } from "../../network";
+import { useSelector } from "react-redux";
 
-const projectCode = ["WFS_1101", "WFS_1102"];
-const jobCode = [
-  "Dev-Analysis",
-  "Dev-Implementation",
-  "Dev-UnitTesting",
-  "Dev-CodeReview",
-  "RequirementGathering",
-  "RequirementAnalysis",
-  "TestCase-Writing",
-  "TestCase-Execution",
-  "TestCase-Automation",
-];
+// const projectCode = ["WFS_1101", "WFS_1102"];
+// const jobCode = [
+//   "Dev-Analysis",
+//   "Dev-Implementation",
+//   "Dev-UnitTesting",
+//   "Dev-CodeReview",
+//   "RequirementGathering",
+//   "RequirementAnalysis",
+//   "TestCase-Writing",
+//   "TestCase-Execution",
+//   "TestCase-Automation",
+// ];
 
 const TimeCard = (props) => {
   const {
@@ -30,6 +32,8 @@ const TimeCard = (props) => {
     filledData = {},
   } = props;
   const inputDefault = "";
+  const [projectCode, setProjectCode] = useState([]);
+  const [jobCode, setJobCode] = useState([]);
   const [weekData, setWeekData] = useState(
     filledData?.hourlyData || Array(7).fill(inputDefault)
   );
@@ -38,10 +42,17 @@ const TimeCard = (props) => {
   );
   const [jobCodeValue, setJobCodeValue] = useState(filledData?.jobCode || "");
   const inputRefs = useRef([]);
+  const { jobCodes, projectCodes } = useSelector((state) => state);
 
   let week = generateFormattedDateArray(duration);
 
+  const getJobCodeProjectCode = async () => {
+    setJobCode(jobCodes);
+    setProjectCode(projectCodes);
+  };
+
   useEffect(() => {
+    getJobCodeProjectCode();
     inputRefs.current = Array(7)
       .fill(null)
       .map(() => React.createRef());

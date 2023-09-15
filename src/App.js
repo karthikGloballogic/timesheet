@@ -1,11 +1,23 @@
+import { Provider } from "react-redux";
 import "./App.css";
-import Home from "./pages/home";
+import store from "./store/index";
+import { RouterProvider } from "react-router-dom";
+import router from "./setup/routes-manager";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAllData } from "./network/fetchAll";
 
 function App() {
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(fetchAllData()); // Assuming you're using Redux and dispatching the fetchAllData action
+  // }, [dispatch]);
+
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   );
 }
 

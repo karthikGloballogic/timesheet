@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDetectOutsideClick } from "../../common/hooks/useDectOutsideClick";
 import user from "../../assets/images/user.png";
 import dropdownWhite from "../../assets/images/dropdownWhite.png";
 import logout from "../../assets/images/logout.png";
 import "./index.css";
+import { makeRequest } from "../../network";
+import { useSelector } from "react-redux";
 
 const options = [
   { value: "Alex", label: "Alex Ramp" },
@@ -19,6 +21,15 @@ const Header = (props) => {
   const [selectedOption, setSelectedOption] = useState("Chavan Karthik");
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  // const [options, setOptions] = useState([]);
+  const options = useSelector((state) => state.employeeList);
+
+  // const getEmployees = async () => {
+  //   const employees = await makeRequest("employees");
+  //   setOptions(employees);
+  // };
+
+  // useEffect(() => getEmployees, []);
 
   const onClick = (e) => {
     e.stopPropagation();
@@ -68,9 +79,9 @@ const Header = (props) => {
                 <span
                   key={index}
                   className="user-list"
-                  onClick={() => handleOptionChange(val.label)}
+                  onClick={() => handleOptionChange(val?.name)}
                 >
-                  {val.label}
+                  {val?.name}
                 </span>
               );
             })}
@@ -86,4 +97,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default memo(Header);

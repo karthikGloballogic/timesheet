@@ -14,6 +14,7 @@ import {
   getTotalHours,
   validateData,
 } from "../../common/commonFunctions";
+import { makeRequest } from "../../network";
 
 let tempCount = 2;
 const Employee = () => {
@@ -24,10 +25,17 @@ const Employee = () => {
   const [isFilledDataAvailable, setIsFilledDataAvailable] = useState([]);
   const [totalHours, setTotalHours] = useState([]);
   const [status, setStatus] = useState("pending");
+  // const [state, setState] = useState([]);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
+  const state = useSelector((state) => state.timesheet);
+
+  const getWeekList = async () => {
+    const result = await makeRequest("weeks");
+    // setState(result);
+    // console.log(result, "result from get api");
+  };
 
   const handleAddRow = () => {
     if (rows.length < 3) {
@@ -71,8 +79,14 @@ const Employee = () => {
   };
 
   useEffect(() => {
-    const weekIndex = state.findIndex((week) => week.week === weekSelected);
-    // console.log(weekIndex, "weekIndex");
+    // Call Api
+    // getWeekList();
+  }, []);
+
+  console.log(state, "state");
+
+  useEffect(() => {
+    const weekIndex = state?.findIndex((week) => week.week === weekSelected);
 
     if (weekIndex !== -1) {
       // Find the matching user in the week's users
@@ -97,19 +111,21 @@ const Employee = () => {
     } else {
       clearInputs();
     }
-  }, [user, weekSelected]);
+  }, [user, weekSelected, state]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateData(hourData)) {
       const payload = {
         week: weekSelected,
-        data: {
+        users: {
           username: user,
           userLoggedData: hourData,
           totalHours: getTotalHours(totalHours),
         },
       };
       dispatch(add(payload));
+      const result = await makeRequest("weeks", "POST", payload);
+      console.log(result, "results from api");
       navigate("/");
     }
   };

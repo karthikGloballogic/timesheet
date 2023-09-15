@@ -8,6 +8,7 @@ import Button from "../../components/button";
 import TimeCard from "../../components/timeCard";
 import { updateUser } from "../../store/features/users";
 import { useDispatch } from "react-redux";
+import { makeRequest } from "../../network";
 
 const ViewDetails = () => {
   const { state } = useLocation();
@@ -16,6 +17,15 @@ const ViewDetails = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const handleSubmit = async (userData) => {
+    const result = await makeRequest(
+      `updateUser/${userData.id}`,
+      "PUT",
+      userData
+    );
+    console.log(result, "result from updateUser");
+  };
 
   const handleApproveReject = (type) => {
     let updatedData = { ...state?.user, status: type };
@@ -26,6 +36,7 @@ const ViewDetails = () => {
         userData: updatedData,
       })
     );
+    handleSubmit(updatedData);
     navigate(-1);
   };
 

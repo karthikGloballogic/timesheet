@@ -4,11 +4,12 @@ import App from "../../App";
 import Manager from "../../pages/manager";
 import Employee from "../../pages/employee";
 import ViewDetails from "../../pages/viewDetails";
+import Home from "../../pages/home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
     path: "manager",

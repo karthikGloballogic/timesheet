@@ -6,22 +6,44 @@ import Button from "../../components/button";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../store/features/users";
 import { useNavigate } from "react-router-dom";
+import { makeRequest } from "../../network";
 
 const Manager = () => {
   const [weekSelected, setWeekSelected] = useState("");
   const [tableData, setTableData] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  // const [state, setState] = useState([]);
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
+  const state = useSelector((state) => state.timesheet);
 
   const navigate = useNavigate();
 
+  // const getWeekList = async () => {
+  //   const result = await makeRequest("weeks");
+  //   setState(result);
+  //   // console.log(result, "result from get api");
+  // };
+
+  const handleStatus = async (data) => {
+    const result = await makeRequest("updateWeekUsers", "POST", data);
+    console.log("handle result for status", result);
+    // getWeekList();
+  };
+
+  // useEffect(() => getWeekList, []);
+
   useEffect(() => {
     let tempData = state.find((val) => val.week === weekSelected);
-    let filteredData = tempData?.users?.filter(
-      (val) => !val.hasOwnProperty("status")
-    );
+
+    // let filteredData = tempData?.users?.filter(
+    //   (val) => !val.hasOwnProperty("status")
+    // );
+    let filteredData = tempData?.users?.filter((val) => {
+      console.log(val.selected, "check status");
+      if (val.status === "rejected" || val.status === null) return true;
+      return false;
+    });
     setTableData(filteredData);
   }, [state, weekSelected]);
 
@@ -72,8 +94,14 @@ const Manager = () => {
       users: updatedData,
     };
     dispatch(update(payload));
+    handleStatus(payload);
+    setTableData((prev) => {
+      return prev.filter((val) => val.selected === null);
+    });
     setSelectAll(false);
   };
+
+  console.log(tableData, "tableData");
 
   return (
     <div className="manager-container">
