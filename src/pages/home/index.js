@@ -7,8 +7,7 @@ import "./index.css";
 import { fetchAllData } from "../../network/fetchAll";
 import { useDispatch } from "react-redux";
 
-const Home = () => {
-  console.log("home");
+const Home = ({ match }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

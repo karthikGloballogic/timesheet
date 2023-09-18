@@ -2,7 +2,7 @@ header {
   border-radius: 16px;
   padding: 0px 30px 0px 30px;
   height: 11vmin;
-  background: #706bf8;
+  background: #6863f0; /* #706bf8; */
   box-shadow: 10px 10px 20px 0px #dae0ec, -10px -10px 20px 0px #fff;
   display: flex;
   align-items: center;

@@ -53,12 +53,12 @@ const ViewDetails = () => {
           </div>
           <div className="user-viewDetails">
             <div className="user-pic" style={{ width: "40px", height: "40px" }}>
-              <img src={user} style={{ height: "5vmin" }} />
+              <img src={user} style={{ height: "5vmin" }} alt="user profile" />
             </div>
             <p>{state?.user?.username}</p>
           </div>
           <div className="total-hours-container">
-            <img src={clock} />
+            <img src={clock} alt="total hours icon" />
             <div>
               <p className="total-hours">{state?.user?.totalHours}h</p>
               <p className="total-hours-subheading">Total Hours Logged</p>
@@ -72,7 +72,7 @@ const ViewDetails = () => {
           />
           <Button
             title="Reject"
-            background={"#F8736B"}
+            background={"#ce4941"}
             style={{ marginLeft: "30px" }}
             onClick={() => handleApproveReject("rejected")}
           />

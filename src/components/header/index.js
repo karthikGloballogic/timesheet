@@ -5,15 +5,7 @@ import user from "../../assets/images/user.png";
 import dropdownWhite from "../../assets/images/dropdownWhite.png";
 import logout from "../../assets/images/logout.png";
 import "./index.css";
-import { makeRequest } from "../../network";
 import { useSelector } from "react-redux";
-
-const options = [
-  { value: "Alex", label: "Alex Ramp" },
-  { value: "John", label: "John Due" },
-  { value: "Peter", label: "Peter Rog" },
-  { value: "Karthik", label: "Chavan Karthik" },
-];
 
 const Header = (props) => {
   const { title, type, onChange } = props;
@@ -21,18 +13,16 @@ const Header = (props) => {
   const [selectedOption, setSelectedOption] = useState("Chavan Karthik");
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  // const [options, setOptions] = useState([]);
   const options = useSelector((state) => state.employeeList);
-
-  // const getEmployees = async () => {
-  //   const employees = await makeRequest("employees");
-  //   setOptions(employees);
-  // };
-
-  // useEffect(() => getEmployees, []);
 
   const onClick = (e) => {
     e.stopPropagation();
+    console.log(isActive);
+
+    setIsActive(!isActive);
+  };
+
+  const activate = () => {
     setIsActive(!isActive);
   };
 
@@ -46,13 +36,19 @@ const Header = (props) => {
     navigate("/");
   };
 
+  const handleKeyPress = (event, callback) => {
+    if (event.key === "Enter") {
+      callback();
+    }
+  };
+
   return (
     <header>
       <p>{title}</p>
       <div className="right-header">
         <div className="userSelect-container">
           <div className="user-pic">
-            <img src={user} />
+            <img src={user} alt="User Icon" />
           </div>
           {type !== "manager" && (
             <div
@@ -64,15 +60,26 @@ const Header = (props) => {
                 cursor: "pointer",
               }}
               onClick={onClick}
+              onKeyDown={(event) => handleKeyPress(event, activate)}
+              role="button"
+              aria-expanded={isActive}
+              tabIndex={0}
             >
-              <span className="userName">{selectedOption}</span>
-              <img src={dropdownWhite} className="user-dropdown-icon" />
+              <span className="userName" tabIndex={-1}>
+                {selectedOption}
+              </span>
+              <img
+                src={dropdownWhite}
+                className="user-dropdown-icon"
+                alt="Dropdown Icon"
+              />
             </div>
           )}
           {type === "manager" && <span className="userName">Manager</span>}
           <div
             ref={dropdownRef}
             className={`menu ${isActive ? "active" : "inactive"}`}
+            tabIndex={0}
           >
             {options.map((val, index) => {
               return (
@@ -80,6 +87,11 @@ const Header = (props) => {
                   key={index}
                   className="user-list"
                   onClick={() => handleOptionChange(val?.name)}
+                  onKeyPress={(event) =>
+                    handleKeyPress(event, () => handleOptionChange(val?.name))
+                  }
+                  role="button"
+                  tabIndex={0}
                 >
                   {val?.name}
                 </span>
@@ -87,8 +99,14 @@ const Header = (props) => {
             })}
           </div>
           {/* Logout */}
-          <div className="logout" onClick={navigateToHome}>
-            <img src={logout} />
+          <div
+            className="logout"
+            onClick={navigateToHome}
+            onKeyPress={(event) => handleKeyPress(event, navigateToHome)}
+            role="button"
+            tabIndex={0}
+          >
+            <img src={logout} alt="Logout Icon" />
             <span>Logout</span>
           </div>
         </div>

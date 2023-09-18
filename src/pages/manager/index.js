@@ -12,35 +12,20 @@ const Manager = () => {
   const [weekSelected, setWeekSelected] = useState("");
   const [tableData, setTableData] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  // const [state, setState] = useState([]);
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state.timesheet);
 
   const navigate = useNavigate();
 
-  // const getWeekList = async () => {
-  //   const result = await makeRequest("weeks");
-  //   setState(result);
-  //   // console.log(result, "result from get api");
-  // };
-
   const handleStatus = async (data) => {
     const result = await makeRequest("updateWeekUsers", "POST", data);
     console.log("handle result for status", result);
-    // getWeekList();
   };
-
-  // useEffect(() => getWeekList, []);
 
   useEffect(() => {
     let tempData = state.find((val) => val.week === weekSelected);
-
-    // let filteredData = tempData?.users?.filter(
-    //   (val) => !val.hasOwnProperty("status")
-    // );
     let filteredData = tempData?.users?.filter((val) => {
-      console.log(val.selected, "check status");
       if (val.status === "rejected" || val.status === null) return true;
       return false;
     });
@@ -53,8 +38,6 @@ const Manager = () => {
       ...updatedData[id],
       selected: val.target.checked,
     };
-    // item.id === id ? { ...item, selected: !item?.selected || true } : item
-
     setTableData(updatedData);
     setSelectAll(false);
   };
@@ -73,9 +56,8 @@ const Manager = () => {
   };
 
   const handleApproveReject = (type) => {
-    console.log(validateSelect());
     if (!validateSelect()) {
-      alert("Please select one to approve or reject");
+      alert("Please select at least one to approve or reject.");
       return;
     }
 
@@ -86,8 +68,6 @@ const Manager = () => {
         return val;
       }
     });
-
-    const notSelected = tableData.filter((val) => val?.selected !== true);
 
     const payload = {
       week: weekSelected,
@@ -101,15 +81,11 @@ const Manager = () => {
     setSelectAll(false);
   };
 
-  console.log(tableData, "tableData");
-
   return (
     <div className="manager-container">
       <Header title="Manager Approval" type="manager" />
 
-      {/* Body */}
       <div className="employee-options-settings">
-        {/* Date Picker */}
         <WeekPicker onChange={setWeekSelected} />
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -118,7 +94,7 @@ const Manager = () => {
           />
           <Button
             title="Reject"
-            background={"#F8736B"}
+            background={"#ce4941"}
             style={{ marginLeft: "30px" }}
             onClick={() => handleApproveReject("rejected")}
           />
@@ -127,67 +103,71 @@ const Manager = () => {
 
       <div className="table-container">
         <table>
-          {/* <thead> */}
-          <tr>
-            <th>
-              <input
-                className="checkbox"
-                type="checkbox"
-                checked={selectAll}
-                onChange={handleSelectAll}
-              />
-            </th>
-            <th>Emp ID</th>
-            <th>Name</th>
-            <th>Project Code</th>
-            <th>Total Hours</th>
-            <th>View Details</th>
-            <th>Comments</th>
-          </tr>
-          {/* </thead> */}
-          {/* <tbody> */}
-          {tableData?.map((val, i) => {
-            return (
-              <tr style={{ marginLeft: "200px" }} key={i}>
-                <td>
-                  <input
-                    className="checkbox"
-                    type="checkbox"
-                    checked={val?.selected || undefined}
-                    onChange={(event) => handleCheckboxChange(i, event)}
-                  />
-                </td>
-                <td>{i}</td>
-                <td>{val?.username}</td>
-                <td>{val?.userLoggedData[0]?.projectCode}</td>
-                <td>{val?.totalHours}</td>
-                <td>
-                  <button
-                    className="table-button"
-                    onClick={() =>
-                      navigate("/viewDetails", {
-                        state: {
-                          week: weekSelected,
-                          user: tableData[i],
-                          userIndex: i,
-                        },
-                      })
-                    }
-                  >
-                    View
-                  </button>
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="comment"
-                    placeholder="Comment"
-                  />
-                </td>
-              </tr>
-            );
-          })}
-          {/* </tbody> */}
+          <thead>
+            <tr>
+              <th scope="col" aria-label="Column 1">
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                  aria-label="Select All"
+                />
+              </th>
+              <th scope="col">Emp ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Project Code</th>
+              <th scope="col">Total Hours</th>
+              <th scope="col">View Details</th>
+              <th scope="col">Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableData?.map((val, i) => {
+              return (
+                <tr key={i}>
+                  <td>
+                    <input
+                      className="checkbox"
+                      type="checkbox"
+                      checked={val?.selected || false}
+                      onChange={(event) => handleCheckboxChange(i, event)}
+                      aria-label={`Select for ${val?.username}`}
+                    />
+                  </td>
+                  <td>{i}</td>
+                  <td>{val?.username}</td>
+                  <td>{val?.userLoggedData[0]?.projectCode}</td>
+                  <td>{val?.totalHours}</td>
+                  <td>
+                    <button
+                      className="table-button"
+                      onClick={() =>
+                        navigate("/viewDetails", {
+                          state: {
+                            week: weekSelected,
+                            user: tableData[i],
+                            userIndex: i,
+                          },
+                        })
+                      }
+                      aria-label={`View Details for ${val?.username}`}
+                    >
+                      View
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      className="comment"
+                      placeholder="Comment"
+                      aria-label={`Comment for ${val?.username}`}
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </div>
