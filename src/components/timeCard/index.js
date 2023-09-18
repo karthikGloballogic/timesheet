@@ -117,6 +117,7 @@ const TimeCard = (props) => {
           className="project-input hour-input"
           min={0}
           max={16}
+          aria-label={`Hours for ${day}`}
           defaultValue={
             filled || status === "rejected"
               ? filledData.hourlyData[i]
@@ -138,6 +139,7 @@ const TimeCard = (props) => {
           disabled={filled}
           onChange={setProjectCodeValue}
           defaultValue={projectCodeValue}
+          label="Project Code"
         />
       </div>
       <div>
@@ -147,6 +149,7 @@ const TimeCard = (props) => {
           disabled={filled}
           onChange={setJobCodeValue}
           defaultValue={jobCodeValue}
+          label="Job Code"
         />
       </div>
       {listDateInput()}
@@ -157,9 +160,12 @@ const TimeCard = (props) => {
       <div
         className="delete-wrapper"
         onClick={() => deleteRow()}
+        tabIndex={0}
+        role="button"
+        aria-label="Delete Row"
         style={{ display: filled ? "none" : "" }}
       >
-        <img src={cross} className="delete-icon" />
+        <img src={cross} className="delete-icon" alt="Delete Row Icon" />
       </div>
     </div>
   );

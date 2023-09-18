@@ -79,13 +79,6 @@ const Employee = () => {
   };
 
   useEffect(() => {
-    // Call Api
-    // getWeekList();
-  }, []);
-
-  console.log(state, "state");
-
-  useEffect(() => {
     const weekIndex = state?.findIndex((week) => week.week === weekSelected);
 
     if (weekIndex !== -1) {
@@ -140,7 +133,7 @@ const Employee = () => {
         <div className="header-left">
           <WeekPicker onChange={setWeekSelected} />
           <div className="total-hours-container">
-            <img src={clock} />
+            <img src={clock} alt="clock icons" />
             <div>
               <p className="total-hours">{getTotalHours(totalHours)}h</p>
               <p className="total-hours-subheading">Total Hours Logged</p>
@@ -149,6 +142,7 @@ const Employee = () => {
         </div>
         <Button
           title="Submit"
+          tabIndex={10}
           onClick={handleSubmit}
           style={{
             display: getDisplayTypeForFilledData(
@@ -180,6 +174,7 @@ const Employee = () => {
       <Button
         title="Add Row"
         type="bare"
+        tabIndex={1}
         background="white"
         style={{
           marginTop: "15px",

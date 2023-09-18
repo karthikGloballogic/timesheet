@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "./index.css";
 
-const AutoComplete = ({ data, disabled, defaultValue = "", onChange }) => {
+const AutoComplete = ({
+  data,
+  disabled,
+  defaultValue = "",
+  onChange,
+  label,
+}) => {
   const [suggestions, setSuggestions] = useState([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
@@ -78,6 +84,7 @@ const AutoComplete = ({ data, disabled, defaultValue = "", onChange }) => {
         className="project-input"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        aria-label={label}
       />
       {suggestionsActive && <Suggestions />}
     </div>

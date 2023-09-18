@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 
 const Button = (props) => {
-  const { title, background = "#706bf8", type, style, onClick } = props;
+  const { title, background = "#6863f0", type, style, onClick } = props;
   return (
     <button
       className={`button ${type == "bare" ? "bareButton" : "normal"}`}
