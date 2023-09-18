@@ -1,0 +1,102 @@
+header {
+  border-radius: 16px;
+  padding: 0px 30px 0px 30px;
+  height: 11vmin;
+  background: #706bf8;
+  box-shadow: 10px 10px 20px 0px #dae0ec, -10px -10px 20px 0px #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header p {
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.user-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #d3f86b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-pic img {
+  height: 4vmin;
+}
+
+.userSelect-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu {
+  background: #ffffff;
+  border-radius: 8px;
+  position: absolute;
+  top: 70px;
+  right: 200px;
+  width: 140px;
+  box-shadow: 0 10px 10px 0px #efefef;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+.menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.userName {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+.user-list {
+  color: black;
+  width: 100%;
+  display: block;
+  padding: 8px 0px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.user-list:hover {
+  background: #efefef69;
+}
+
+.user-dropdown-icon {
+  height: 2.5vmin;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.logout img {
+  height: 2.8vmin;
+  margin-right: 7px;
+}
+
+.logout span {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}

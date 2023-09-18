@@ -1,0 +1,65 @@
+.timesheet-card {
+  margin-bottom: 20px;
+  border-radius: 15px;
+  background: #fff;
+  /* box-shadow: 0px 4px 20px 0px #efefef; */
+  box-shadow: 0px 4px 20px 0px #efefef, -5px -4px 20px 0px #efefef;
+  padding: 15px 0 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.input-header {
+  margin-top: 0;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.project-input {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 5px;
+  outline: none;
+  /* background: #fff; */
+}
+
+.project-input:focus {
+  outline: 1px solid #706bf8ba;
+}
+
+.hour-input {
+  width: 5.5vw;
+}
+
+.delete-wrapper {
+  position: absolute;
+  /* top: 0px; */
+  margin-top: -53px;
+  right: 16px;
+  /* border-radius: 15px; */
+  border-bottom-left-radius: 25px;
+  border-top-right-radius: 13px;
+  background: rgba(206, 70, 70, 0.25);
+  cursor: pointer;
+  width: 3vw;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-icon {
+  height: 2.5vmin;
+  align-self: center;
+}
+
+.total-input {
+  margin: 0;
+  width: 5.5vw;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 2px 5px;
+}
